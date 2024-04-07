@@ -15,19 +15,28 @@
  */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        ArrayList<Integer> list = new ArrayList<>();
-        rightView(root, list, 0);
-        return list;
-
-    }
-    public static void rightView(TreeNode node, ArrayList<Integer> list, int currDepth){
-        if(node == null){
-            return;
+        List<Integer>ans = new ArrayList<>();
+        
+        if(root == null)return ans;
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()){
+            int levelSize = q.size();
+            for(int i = 0;i<levelSize;i++){
+                TreeNode currNode = q.poll();
+                //the main logic is here.except that levelOder Copy Paste
+                if( i == levelSize-1){
+                    ans.add(currNode.val);
+                }
+                if(currNode.left!= null){
+                    q.offer(currNode.left);
+                }
+                if(currNode.right!= null){
+                    q.offer(currNode.right);
+                }
+            }
         }
-        if(currDepth == list.size()){
-            list.add(node.val);
-        }
-        rightView(node.right, list,currDepth+1);
-        rightView(node.left, list,currDepth+1);
+        return ans;
     }
 }
