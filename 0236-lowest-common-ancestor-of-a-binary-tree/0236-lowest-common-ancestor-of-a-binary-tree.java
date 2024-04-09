@@ -9,21 +9,11 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        //base case.
-        if(root == null || root.val == p.val || root.val == q.val){
-            return root;
-        }
-        
-        TreeNode left_LCA = lowestCommonAncestor(root.left, p, q);//ami recursively left subtree er LCA calculate korbo
-        TreeNode right_LCA = lowestCommonAncestor(root.right, p, q);//ami recursively right subtree er LCA calculate korbo
-        
-        if(right_LCA == null){ //jodi rightLCA amr null hoi tarmane left side a commom ansistor ache..
-            return left_LCA;
-        }
-        if( left_LCA == null){//jodi leftLCA amr null hoi tarmane right side a commom ansistor ache..
-            return right_LCA;
-        }
-        
-        return root; //jodi leftLCA r RightLCA konotai null na hoi thahole current node ta amr Common Ansistor.
+      if(root == null || root == p || root == q)return root;
+        TreeNode leftLca = lowestCommonAncestor(root.left, p, q);
+        TreeNode rightLca = lowestCommonAncestor(root.right, p, q);
+        if(leftLca!= null && rightLca!= null)return root;// If both leftLca and rightLca are not null, it means p and q are found in different subtrees,
+        // hence root is the lowest common ancestor
+        return leftLca == null ? rightLca : leftLca;  
     }
 }
